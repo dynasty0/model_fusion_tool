@@ -83,34 +83,6 @@ def make_fakeQuant_node(node_name, input_list):
     node.attr["num_bits"].i = 8
     return node
 
-def make_cropResize_node(node_name, input_list, output_shape=[3,64,64,3]):
-    node = node_def_pb2.NodeDef()
-    node.name = node_name
-    node.op = "CropAndResize"
-    node.input.extend(input_list)
-    node.attr['crop_height'].i = output_shape[1]
-    node.attr['crop_width'].i = output_shape[2]
-    node.attr['align_corners'].b = True
-    node.attr['method'].i = 0
-    mode.attr['_output_types'].list.type.extend([types_pb2.DT_FLOAT,])
-    node.attr['_output_shapes'].list.shape.extend([tf.TensorShape(output_shape).as_proto(),])
-    node.attr['_output_quantized'].b = True
-    return node
-
-def make_cropResize_node_v2(node_name, input_list, output_shape=[3,64,64,3]):
-    node = node_def_pb2.NodeDef()
-    node.name = node_name
-    node.op = "CropAndResize"
-    node.input.extend(input_list)
-    node.attr['crop_height'].i = output_shape[1]
-    node.attr['crop_width'].i = output_shape[2]
-    node.attr['align_corners'].b = True
-    node.attr['method'].i = 0
-    node.attr['_output_types'].list.type.extend([types_pb2.DT_FLOAT,types_pb2.DT_FLOAT,types_pb2.DT_FLOAT])
-    node.attr['_output_shapes'].list.shape.extend([tf.TensorShape(output_shape).as_proto(),tf.TensorShape(output_shape[0]).as_proto(),tf.TensorShape(output_shape[3]).as_proto()])
-    node.attr['_output_quantized'].b = True
-    return node
-
 def add_prefix(node, prefix):
     if node.name[-4:] == 'read':
         for index, value in enumerate(node.attr['_class'].list.s):
