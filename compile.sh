@@ -1,0 +1,1 @@
+./bin/protoc -I=./protos --python_out=./protos ./protos/ops.proto

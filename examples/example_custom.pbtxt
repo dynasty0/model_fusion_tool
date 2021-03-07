@@ -1,0 +1,14 @@
+node{
+    custom{
+        name: "postprocess"
+        inputs: ["input1", "input2"]
+        _output_types: "float"
+        _output_quantized: True
+        _output_shapes:[
+            1,64,64,
+            1,32,32,3
+        ]
+        dims: [3,4]
+        _support_output_type_float_in_quantized_op: True
+    }
+}

@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package dynasty0;
+
+message MyGraphDef{
+    string path = 1;
+    string prefix = 2;
+    bool change_concat_input_ranges = 3;
+    repeated string node_to_remove = 4;
+    repeated string node_to_modify = 5;
+    message MyMap{
+        string key = 1;
+        string value = 2;
+    };
+    repeated MyMap node_to_modify_info = 6;
+};
+
+message CustomOpDef{
+    string type = 1;
+    string name = 2;
+    repeated string inputs = 3;
+    repeated string _output_types = 4;
+    bool _output_quantized = 5;
+    repeated int32 _output_shapes = 6;
+    repeated int32 dims = 7;
+    bool _support_output_type_float_in_quantized_op = 8;
+    repeated int32 fake_quant_ids = 9;
+    repeated string fake_quant_names = 10;
+    repeated float fake_quant_mins = 11;
+    repeated float fake_quant_maxs = 12;
+    repeated int32 identity_ids = 13;
+    repeated string identity_names = 14;
+    repeated string identity_types = 15;
+    message AttrValue{
+        oneof value{
+            float f = 1;
+            int32 i = 2;
+            bool b = 3;
+        };
+    };
+    map<string, AttrValue> attr = 16;
+};
+
+message ConstDataDef{
+    string name = 1;
+    string func_path = 2;
+    string func_name = 3;
+    bool add_fake_quant_flag = 4;
+    repeated float min = 5;
+    repeated float max = 6;
+};
+
+message NodeDef{
+    oneof op{
+        MyGraphDef graph = 1;
+        CustomOpDef custom = 2;
+        ConstDataDef data = 3;
+    };
+};
+
+message NodeList{
+    repeated NodeDef node = 1;
+};

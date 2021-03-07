@@ -1,0 +1,10 @@
+node{
+    data{
+        name: "anchor"
+        func_path: "../functions/make_anchor.py"
+        func_name: "make_anchor"
+        add_fake_quant_flag: True
+        min: 0.0
+        max: 1.0
+    }
+}

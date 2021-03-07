@@ -1,0 +1,57 @@
+node {
+  name: "postprocess"
+  input: "input1"
+  input: "input2"
+  attr {
+    key: "_output_quantized"
+    value {
+      b: true
+    }
+  }
+  attr {
+    key: "_output_shapes"
+    value {
+      list {
+        shape {
+          dim {
+            size: 1
+          }
+          dim {
+            size: 64
+          }
+          dim {
+            size: 64
+          }
+        }
+        shape {
+          dim {
+            size: 1
+          }
+          dim {
+            size: 32
+          }
+          dim {
+            size: 32
+          }
+          dim {
+            size: 3
+          }
+        }
+      }
+    }
+  }
+  attr {
+    key: "_output_types"
+    value {
+      list {
+        type: DT_FLOAT
+      }
+    }
+  }
+  attr {
+    key: "_support_output_type_float_in_quantized_op"
+    value {
+      b: true
+    }
+  }
+}
